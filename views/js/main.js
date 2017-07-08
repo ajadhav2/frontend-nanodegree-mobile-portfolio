@@ -547,10 +547,12 @@ function updatePositions() {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition);
   }
+  // requestAnimationFrame(updatePositions);
 }
 
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositions);
+// window.addEventListener('scroll', requestAnimationFrame(updatePositions));
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
@@ -567,4 +569,5 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
   updatePositions();
+  // requestAnimationFrame(updatePositions);
 });
