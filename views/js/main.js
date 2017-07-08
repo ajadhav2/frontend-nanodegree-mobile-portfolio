@@ -492,18 +492,13 @@ function updatePositions() {
   //Get all the sliding pizzas in items variable using querySelectorAll
   var items = document.querySelectorAll('.mover');
   //get the height of scroller from top
-  var temp = document.body.scrollTop;
-  var cols1 = 8;
-  var s1 = 256;
+  var scrollerHeight = document.body.scrollTop;
+  //this variable is used to get the correct value for basicLeft property from basicLeftVal array
   var j;
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((temp / 1250) + (i % 5));
-    var basicLeft1 = (i % cols1) * s1;
-    items[i].style.left = basicLeft1 + 100 * phase + 'px';
+    var phase = Math.sin((scrollerHeight / 1250) + (i % 5));
     j = i % 8;
-    if(basicLeft1 === basicLeftVal[j]){
-      console.log(i+" i "+basicLeft1+ " ssss jjj " + basicLeftVal[j]);
-    }
+    items[i].style.left =  basicLeftVal[j] + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -518,13 +513,16 @@ function updatePositions() {
 
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositions);
-
+//This array is used to the basicLeft property of items
+//As we are doing mod 8 so we only need to calculate basicLeft for 8 items...0 to 7
+//After that its going to repeat
 var basicLeftVal = [];
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+  //this variable is used to get the correct value for basicLeft property
   var j;
   //This for loop creates 200 pizzas
   //For each pizza it wiil create img element, add mover class to pizza and set its height,width,basicLeft and top properties
@@ -535,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
-    // elem.basicLeft = (i % cols) * s;
+    //if i is less than 8 then calculate and store the value of basicLeft in basicLeftVal array
     if(i < 8)
       basicLeftVal[i] =  (i % cols) * s;
     j = i % 8;
@@ -543,6 +541,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  console.log("basicLeftVal");
   updatePositions();
 });
