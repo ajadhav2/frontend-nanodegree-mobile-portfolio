@@ -404,15 +404,16 @@ var resizePizzas = function(size) {
 
   // Changes the value for the size of the pizza above the slider
   function changeSliderLabel(size) {
+    //used document.getElementById istead of document.querySelector
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById('pizzaSize').innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById('pizzaSize').innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById('pizzaSize').innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -438,9 +439,11 @@ var resizePizzas = function(size) {
       default:
         console.log("bug in sizeSwitcher");
     }
-    // calculate and store document.querySelector(".randomPizzaContainer") in randomPizzas variable
-    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
-    for (var i = 0; i < randomPizzas.length; i++) {
+    // calculate and store document.getElementsByClassName('randomPizzaContainer') in randomPizzas variable
+    var randomPizzas = document.getElementsByClassName('randomPizzaContainer');
+    //storing the randomPizzas array length in len variable
+    var len = randomPizzas.length;
+    for (var i = 0; i < len; i++) {
       randomPizzas[i].style.width = newWidth + "%";
     }
   }
@@ -456,9 +459,10 @@ var resizePizzas = function(size) {
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
+//Get the element with the id randomPizzas and store it in pizzasDiv variable
+var pizzasDiv = document.getElementById('randomPizzas');
 // This for-loop actually creates and appends all of the pizzas when the page loads
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -489,8 +493,8 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-  //Get all the sliding pizzas in items variable using querySelectorAll
-  var items = document.querySelectorAll('.mover');
+  //Get all the sliding pizzas in items variable using document.getElementsByClassName
+  var items = document.getElementsByClassName('mover');
   //get the height of scroller from top
   var scrollerHeight = document.body.scrollTop;
   //this variable is used to get the correct value for basicLeft property from basicLeftVal array
@@ -524,11 +528,15 @@ document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
   //this variable is used to get the correct value for basicLeft property
   var j;
-  //This for loop creates 200 pizzas
-  //For each pizza it wiil create img element, add mover class to pizza and set its height,width,basicLeft and top properties
-  //finally it will add this pizza to movingPizzas1
-  for (var i = 0; i < 200; i++) {
-    var elem = document.createElement('img');
+  //Get the element with the id movingPizzas1 and store it in movingPizzas variable
+  var movingPizzas = document.getElementById('movingPizzas1');
+  //declare pizza variable
+  var elem;
+  //This for loop creates 24 pizzas
+  //For each pizza it wiil set img element, add mover class to pizza and set its height,width,basicLeft and top properties
+  //finally it will add this pizza to movingPizzas
+  for (var i = 0, elem; i < 24; i++) {
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
@@ -539,7 +547,8 @@ document.addEventListener('DOMContentLoaded', function() {
     j = i % 8;
     elem.basicLeft = basicLeftVal[j];
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    // Append elem to movingPizzas
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });
