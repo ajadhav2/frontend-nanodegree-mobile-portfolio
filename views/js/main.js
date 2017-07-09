@@ -530,8 +530,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var j;
   //Get the element with the id movingPizzas1 and store it in movingPizzas variable
   var movingPizzas = document.getElementById('movingPizzas1');
-  //declare pizza variable
-  var elem;
   //This for loop creates 24 pizzas
   //For each pizza it wiil set img element, add mover class to pizza and set its height,width,basicLeft and top properties
   //finally it will add this pizza to movingPizzas

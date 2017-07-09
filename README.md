@@ -50,7 +50,7 @@ To run the application perform following steps
 - storing the randomPizzas array length in len variable
 - declaring pizzasDiv variable outside for loop
 - changed the number of sliding pizzas from 200 to 24
-- declaring pizza variable elem outside the for loop
+- declaring pizza variable elem in  in the initialisation of the for loop
 - Get the element with the id movingPizzas1 and store it in movingPizzas variable
 - Append elem to movingPizzas
 
